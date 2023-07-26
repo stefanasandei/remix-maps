@@ -11,11 +11,12 @@ import { set as setSearchQuery, toggle } from "~/lib/slices/search-query";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useAppDispatch, useAppSelector } from "~/lib/hooks";
-import { Form } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
+import { type action } from "~/routes/_index";
 
 export const Sidebar = () => {
   const searchQuery = useAppSelector((state) => state.searchQuery);
-
+  const searchResult = useActionData<typeof action>();
   const dispatchSearchQuery = useAppDispatch();
 
   return (
@@ -40,6 +41,7 @@ export const Sidebar = () => {
             >
               <Input
                 type="text"
+                name="destination"
                 value={searchQuery.destination}
                 onChange={(e) => {
                   dispatchSearchQuery(setSearchQuery(e.target.value));
@@ -47,10 +49,9 @@ export const Sidebar = () => {
                 placeholder="Search a destination"
                 className="w-64"
               />
-              <Button type="submit" onClick={() => {}}>
-                Search
-              </Button>
+              <Button type="submit">Search</Button>
             </Form>
+            <div>{JSON.stringify(searchResult)}</div>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

@@ -1,25 +1,29 @@
 import type { V2_MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { MapView } from "~/components/sections/mapview";
 import { TopBar } from "~/components/sections/topbar";
-import { Button } from "~/components/ui/button";
-import { getDB } from "~/lib/db.server";
+import MapView from "~/components/sections/mapview.client";
+import { ClientOnly } from "~/components/functional/client-only";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "OpenMaps" }, { name: "description", content: "TODO" }];
+  return [
+    { title: "OpenMaps" },
+    { name: "description", content: "TODO" },
+    {
+      tagName: "link",
+      rel: "stylesheet",
+      href: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    },
+  ];
 };
 
 export const loader = async () => {
-  const db = await getDB();
   return {};
 };
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
   return (
     <div className="h-screen">
       <TopBar />
-      <MapView />
+      <ClientOnly fallback={<div>idk</div>}>{() => <MapView />}</ClientOnly>
     </div>
   );
 }

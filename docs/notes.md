@@ -1,7 +1,12 @@
 # stuff used
 
-typescript 
-remix
-tailwind
-leaflet
-redux
+tech:
+ - typescript 
+ - remix
+ - tailwind
+ - leaflet
+ - redux
+
+APIs:
+ - openstreetmap
+ - OSRM

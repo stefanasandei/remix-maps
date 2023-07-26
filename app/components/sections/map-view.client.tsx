@@ -1,12 +1,28 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { LatLngTuple } from "leaflet";
+import { useEffect, useState } from "react";
+import { LoadingSpinner } from "../ui/loading";
 
 const MapView = () => {
-  const position: LatLngTuple = [44.43551, 26.10252];
+  const [position, setPosition] = useState<LatLngTuple>([0.0, 0.0]);
+
   const mapProviders = [
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
   ];
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setPosition([position.coords.latitude, position.coords.longitude]);
+    });
+  }, []);
+
+  if (position[0] == 0.0)
+    return (
+      <div className="flex items-center justify-center h-full">
+        <LoadingSpinner size={45} />
+      </div>
+    );
 
   return (
     <div className="bg-secondary h-full pb-14 -z-10">

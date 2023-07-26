@@ -5,12 +5,15 @@ import {
   set as setSearchQuery,
   toggle as toggleSearchQuery,
 } from "~/lib/slices/search-query";
-import { useAppDispatch } from "~/lib/hooks";
+import { useAppDispatch, useAppSelector } from "~/lib/hooks";
 import { Sidebar } from "./sidebar";
 
 export const AppShell = ({ children }: { children: JSX.Element }) => {
-  const [destination, setDestination] = useState("");
+  const searchQuery = useAppSelector((state) => state.searchQuery);
+  const destinationQuery = useAppSelector((state) => state.destination);
   const dispatchSearchQuery = useAppDispatch();
+
+  const [destination, setDestination] = useState(searchQuery.destination);
 
   return (
     <div className="h-screen overflow-y-hidden">
@@ -39,7 +42,9 @@ export const AppShell = ({ children }: { children: JSX.Element }) => {
           </Button>
         </div>
         <div>
-          <p className="font-bold text-xl">Remix Maps</p>
+          <p className="font-bold text-xl">
+            Remix Maps {JSON.stringify(destinationQuery)}
+          </p>
         </div>
       </div>
       {children}

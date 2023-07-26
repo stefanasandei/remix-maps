@@ -9,7 +9,7 @@ const MapView = () => {
   ];
 
   return (
-    <div className="bg-secondary h-full pb-10">
+    <div className="bg-secondary h-full pb-14">
       <MapContainer
         style={{
           height: "100%",

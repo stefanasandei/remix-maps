@@ -4,3 +4,4 @@ typescript
 remix
 tailwind
 leaflet
+redux

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   destination: "",
+  open: false,
 };
 
 export const searchQuerySlice = createSlice({
@@ -11,9 +12,12 @@ export const searchQuerySlice = createSlice({
     set: (state, action) => {
       state.destination = action.payload;
     },
+    toggle: (state) => {
+      state.open = !state.open;
+    },
   },
 });
 
-export const { set } = searchQuerySlice.actions;
+export const { set, toggle } = searchQuerySlice.actions;
 
 export const searchQueryReducer = searchQuerySlice.reducer;

@@ -8,9 +8,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Provider } from "react-redux";
 
 import "./tailwind.css";
 import "~/env";
+import { store } from "./lib/stores";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -26,7 +28,9 @@ export default function App() {
         <Links />
       </head>
       <body className="">
-        <Outlet />
+        <Provider store={store}>
+          <Outlet />
+        </Provider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -10,7 +10,7 @@ import { Sidebar } from "./sidebar";
 
 export const AppShell = ({ children }: { children: JSX.Element }) => {
   const searchQuery = useAppSelector((state) => state.searchQuery);
-  const destinationQuery = useAppSelector((state) => state.destination);
+  // const destinationQuery = useAppSelector((state) => state.destination);
   const dispatchSearchQuery = useAppDispatch();
 
   const [destination, setDestination] = useState(searchQuery.destination);
@@ -42,9 +42,7 @@ export const AppShell = ({ children }: { children: JSX.Element }) => {
           </Button>
         </div>
         <div>
-          <p className="font-bold text-xl">
-            Remix Maps {JSON.stringify(destinationQuery)}
-          </p>
+          <p className="font-bold text-xl">Remix Maps</p>
         </div>
       </div>
       {children}

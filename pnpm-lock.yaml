@@ -50,6 +50,9 @@ dependencies:
   pg:
     specifier: ^8.11.1
     version: 8.11.1
+  polyline-encoded:
+    specifier: ^0.0.9
+    version: 0.0.9
   postgres:
     specifier: ^3.3.5
     version: 3.3.5
@@ -7713,6 +7716,10 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
     dev: true
+
+  /polyline-encoded@0.0.9:
+    resolution: {integrity: sha512-xv6ONShzZdcISK6IT8x3IqsqxPq7HRqcPJ80V4et4hMolIRct5s/5dtUkfO7hGZEeKtWZ1fK7/fKur8gbd4fvg==}
+    dev: false
 
   /postcss-discard-duplicates@5.1.0(postcss@8.4.27):
     resolution: {integrity: sha512-zmX3IoSI2aoenxHV6C7plngHWWhUOV3sP1T8y2ifzxzbtnuhk1EdPwm0S1bIUNaJ2eNbWeGLEwzw8huPD67aQw==}

@@ -62,7 +62,7 @@ export const Sidebar = () => {
                   <button
                     key={result.display_name}
                     className="rounded-lg text-left hover:bg-secondary p-1 transition-colors cursor-pointer"
-                    onClick={() => {
+                    onClick={async () => {
                       dispatchDestination(
                         setDestination({ lat: result.lat, lon: result.lon })
                       );

@@ -13,7 +13,7 @@ export const action = async ({ request }: LoaderArgs) => {
   };
 
   const res = await fetch(
-    `https://router.project-osrm.org/route/v1/driving/${body.position.lat},${body.position.lon};${body.destination.lat},${body.destination.lon}`
+    `https://router.project-osrm.org/route/v1/driving/${body.position.lon},${body.position.lat};${body.destination.lon},${body.destination.lat}`
   );
 
   const data = await res.json();
@@ -24,9 +24,7 @@ export const action = async ({ request }: LoaderArgs) => {
 
   return json(
     {
-      route: route.map((r: number[]) => {
-        return [r[1], r[0]];
-      }),
+      route: route,
       duration: data.routes[0].duration,
       distance: data.routes[0].distance,
     },

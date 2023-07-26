@@ -2,7 +2,7 @@ import { type ActionArgs, type V2_MetaFunction } from "@remix-run/node";
 import { AppShell } from "~/components/sections/app-shell";
 import MapView from "~/components/sections/map-view.client";
 import { ClientOnly } from "~/components/functional/client-only";
-import { SearchLocation } from "~/components/sections/sidebar";
+import { type SearchLocation } from "~/components/sections/sidebar";
 
 export const meta: V2_MetaFunction = () => {
   return [

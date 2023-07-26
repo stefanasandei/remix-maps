@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "migrate": "drizzle-kit generate:pg",
+    "start": "remix-serve build",
+    "test-ui": "cypress open",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@remix-run/css-bundle": "^1.17.1",
+    "@remix-run/node": "^1.17.1",
+    "@remix-run/react": "^1.17.1",
+    "@remix-run/serve": "^1.17.1",
+    "@t3-oss/env-core": "^0.4.1",
+    "drizzle-orm": "^0.27.0",
+    "isbot": "^3.6.8",
+    "pg": "^8.11.1",
+    "postgres": "^3.3.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.17.1",
+    "@remix-run/eslint-config": "^1.17.1",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "cypress": "^12.15.0",
+    "drizzle-kit": "^0.19.3",
+    "eslint": "^8.38.0",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

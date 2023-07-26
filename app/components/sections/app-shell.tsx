@@ -41,7 +41,7 @@ export const AppShell = ({ children }: { children: JSX.Element }) => {
             Search
           </Button>
         </div>
-        <div>
+        <div className="hidden md:inline">
           {destinationQuery.distance == 0.0 ? (
             <p className="font-bold text-xl">Remix Maps</p>
           ) : (

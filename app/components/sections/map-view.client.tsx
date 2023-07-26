@@ -8,7 +8,8 @@ import {
 import type { LatLngTuple } from "leaflet";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../ui/loading";
-import { useAppSelector } from "~/lib/hooks";
+import { useAppDispatch, useAppSelector } from "~/lib/hooks";
+import { addInfo } from "~/lib/slices/destination";
 const MapView = () => {
   const mapProviders = [
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
@@ -17,7 +18,9 @@ const MapView = () => {
 
   const [position, setPosition] = useState<LatLngTuple>([0.0, 0.0]);
   const [routeCoords, setRouteCoords] = useState<LatLngTuple[]>([]);
+
   const destination = useAppSelector((state) => state.destination);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -43,11 +46,12 @@ const MapView = () => {
 
       if (data.route.length > 0) {
         setRouteCoords(data.route);
+        dispatch(addInfo({ duration: data.duration, distance: data.distance }));
       }
     };
 
     fetchData();
-  }, [position, destination]);
+  }, [position, destination, dispatch]);
 
   if (position[0] == 0.0)
     return (

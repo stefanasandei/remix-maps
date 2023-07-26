@@ -21,7 +21,7 @@ export const loader = async () => {
 
 export default function Index() {
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-y-hidden">
       <TopBar />
       <ClientOnly fallback={<div>idk</div>}>{() => <MapView />}</ClientOnly>
     </div>

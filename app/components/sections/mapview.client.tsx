@@ -5,7 +5,7 @@ const MapView = () => {
   const position: LatLngTuple = [51.505, -0.09];
 
   return (
-    <div className="bg-secondary h-full">
+    <div className="bg-secondary h-full pb-10">
       <MapContainer
         style={{
           height: "100%",

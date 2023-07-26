@@ -2,7 +2,11 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { LatLngTuple } from "leaflet";
 
 const MapView = () => {
-  const position: LatLngTuple = [51.505, -0.09];
+  const position: LatLngTuple = [44.43551, 26.10252];
+  const mapProviders = [
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  ];
 
   return (
     <div className="bg-secondary h-full pb-10">
@@ -12,12 +16,9 @@ const MapView = () => {
         }}
         center={position}
         zoom={13}
-        scrollWheelZoom={false}
+        touchZoom={true}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution="infoEducatie 2023" url={mapProviders[1]} />
         <Marker position={position}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.

@@ -1,5 +1,6 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { Button } from "~/components/ui/button";
 import { getDB } from "~/lib/db.server";
 
 export const meta: V2_MetaFunction = () => {
@@ -16,7 +17,9 @@ export default function Index() {
   return (
     <div className="h-screen">
       <div>top bar</div>
-      <div>content</div>
+      <div>
+        <Button>yes</Button>
+      </div>
     </div>
   );
 }

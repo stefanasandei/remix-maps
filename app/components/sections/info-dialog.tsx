@@ -8,9 +8,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
-import { useAppSelector } from "~/lib/hooks";
+import { useAppDispatch, useAppSelector } from "~/lib/hooks";
+import { set as setPosition } from "~/lib/slices/position";
+import { set as setDestination } from "~/lib/slices/destination";
 
 export const InfoDialog = () => {
+  const dispatch = useAppDispatch();
   const destinationQuery = useAppSelector((state) => state.destination);
 
   return (
@@ -27,7 +30,17 @@ export const InfoDialog = () => {
           </DialogTitle>
           <DialogDescription>
             {destinationQuery.distance == 0.0 ? (
-              <p>Select a starting point and a destination first!</p>
+              <div>
+                <p>Select a starting point and a destination first!</p>
+                <Button
+                  onClick={() => {
+                    dispatch(setPosition({ lat: 44.439663, lon: 26.096306 }));
+                    dispatch(setDestination({ lat: 45.7, lon: 27.18333 }));
+                  }}
+                >
+                  set example route
+                </Button>
+              </div>
             ) : (
               <div className="flex flex-col gap-2 text-lg">
                 <p>

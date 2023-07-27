@@ -6,7 +6,7 @@ Proiectul are doua componente principale:
 
  ## Frontend
 
- Exista doua pagini: "/" (sistem GPS pentru harta lumii, nu apeleaza backend-ul ci in schimb foloseste API-ul OpenStreetMap) si "/bucharest" (harta a Bucurestiului ce comunica cu backend-ul pentru feed live din camere, identificarea traficului si generarea rutelor).
+ Exista doua pagini: "/" (sistem GPS pentru harta lumii, nu apeleaza backend-ul ci in schimb foloseste API-ul OpenStreetMap) si "/bucharest" (harta a Bucurestiului ce comunica cu backend-ul pentru feed live din camere, si identificarea traficului).
 
  Privind accesibilitatea, interfata este responsive, continutul adaptandu-se si pentru desktop cat si pentru telefoane. Contrastul dintre elemente este optim, iar imaginele contint tag-ul "alt", pentru a optimiza folosirea unui screen reader. Harta poate fi utilizata si prin intermediul mouse/tastatura cat si prin touch. 
  
@@ -16,7 +16,7 @@ Proiectul are doua componente principale:
 
  ## Backend
 
- Un server Flask are mai multe cai, pentru identificarea masinilor din feed-ul camerelor si pentru generarea rutelor.
+ Un server Flask are mai multe cai, pentru identificarea masinilor din feed-ul camerelor.
 
  Pentru camerele de filmare:
   - daca timpul dintre doua request-uri pentru a cere datele camerelor este mai mare de o mie de secunde, va fi rulat din nou algoritmul de identificare a masinilor

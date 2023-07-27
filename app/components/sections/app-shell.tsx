@@ -1,5 +1,7 @@
+import { useAppDispatch, useAppSelector } from "~/lib/hooks";
 import { Button } from "../ui/button";
 import { Link, useMatches } from "@remix-run/react";
+import { set as setPosition } from "~/lib/slices/position";
 
 export const AppShell = ({
   children,
@@ -9,6 +11,8 @@ export const AppShell = ({
   topBar: JSX.Element;
 }) => {
   const matches = useMatches();
+  const dispatch = useAppDispatch();
+  const position = useAppSelector((state) => state.position);
   const { pathname } = matches[matches.length - 1];
 
   return (
@@ -22,9 +26,27 @@ export const AppShell = ({
               <Button variant={"outline"}>Bucharest</Button>
             </Link>
           ) : (
-            <Link to="/">
-              <Button variant={"outline"}>World</Button>
-            </Link>
+            <div className="flex flex-row gap-2">
+              <Button
+                className="hidden md:inline"
+                variant={"outline"}
+                onClick={() => {
+                  const current = localStorage.getItem("mapStyle");
+                  localStorage.setItem("mapStyle", current == "0" ? "1" : "0");
+                  dispatch(
+                    setPosition({
+                      lat: position.lat + 0.00001,
+                      lon: position.lon,
+                    })
+                  );
+                }}
+              >
+                Toggle style
+              </Button>
+              <Link to="/">
+                <Button variant={"outline"}>World</Button>
+              </Link>
+            </div>
           )}
         </div>
       </div>

@@ -33,6 +33,7 @@ export const InfoDialog = () => {
               <div>
                 <p>Select a starting point and a destination first!</p>
                 <Button
+                  className="py-2"
                   onClick={() => {
                     dispatch(setPosition({ lat: 44.439663, lon: 26.096306 }));
                     dispatch(setDestination({ lat: 45.7, lon: 27.18333 }));

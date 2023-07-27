@@ -37,6 +37,8 @@ const MapView = (props: {
   const position = useAppSelector((state) => state.position);
   const dispatch = useAppDispatch();
 
+  const [mapStyle, setMapStyle] = useState(0);
+
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -52,6 +54,12 @@ const MapView = (props: {
   }, [dispatch]);
 
   useEffect(() => {
+    if (localStorage.getItem("mapStyle") != null) {
+      setMapStyle(
+        parseInt(localStorage.getItem("mapStyle")?.toString() ?? "0")
+      );
+    } else localStorage.setItem("mapStyle", "0");
+
     const pos = {
       lat: position.lat,
       lon: position.lon,
@@ -93,7 +101,10 @@ const MapView = (props: {
         zoom={props.zoom == "high" ? 7 : 12}
         touchZoom={true}
       >
-        <TileLayer attribution="infoEducatie 2023" url={mapProviders[1]} />
+        <TileLayer
+          attribution="infoEducatie 2023"
+          url={mapProviders[mapStyle]}
+        />
         <Polyline positions={routeCoords} color="red" />
         <Marker position={[position.lat, position.lon]}>
           <Popup>You are here</Popup>

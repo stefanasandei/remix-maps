@@ -8,8 +8,8 @@ import { useLoaderData } from "@remix-run/react";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "OpenMaps" },
-    { name: "description", content: "TODO" },
+    { title: "InfoEducatie_Maps" },
+    { name: "description", content: "InfoEducatie Open 2023" },
     {
       tagName: "link",
       rel: "stylesheet",

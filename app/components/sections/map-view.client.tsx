@@ -10,28 +10,38 @@ import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../ui/loading";
 import { useAppDispatch, useAppSelector } from "~/lib/hooks";
 import { addInfo } from "~/lib/slices/destination";
+import { set as setPosition } from "~/lib/slices/position";
+
 const MapView = () => {
   const mapProviders = [
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
   ];
 
-  const [position, setPosition] = useState<LatLngTuple>([0.0, 0.0]);
   const [routeCoords, setRouteCoords] = useState<LatLngTuple[]>([]);
 
   const destination = useAppSelector((state) => state.destination);
+  const position = useAppSelector((state) => state.position);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setPosition([position.coords.latitude, position.coords.longitude]);
-    });
-  }, []);
+    // if ("geolocation" in navigator) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     dispatch(
+    //       setPosition({
+    //         lat: position.coords.latitude,
+    //         lon: position.coords.longitude,
+    //       })
+    //     );
+    //   });
+    // } else
+    dispatch(setPosition({ lat: 44.439663, lon: 26.096306 }));
+  }, [dispatch]);
 
   useEffect(() => {
     const pos = {
-      lat: position[0],
-      lon: position[1],
+      lat: position.lat,
+      lon: position.lon,
     };
 
     if (pos.lat == 0.0 || destination.lat == 0.0) return;
@@ -53,7 +63,7 @@ const MapView = () => {
     fetchData();
   }, [position, destination, dispatch]);
 
-  if (position[0] == 0.0)
+  if (position.lat == 0.0)
     return (
       <div className="flex items-center justify-center h-full">
         <LoadingSpinner size={45} />
@@ -64,13 +74,13 @@ const MapView = () => {
     <div className="bg-secondary h-full pb-14 -z-10">
       <MapContainer
         style={{ height: "100%" }}
-        center={position}
+        center={[position.lat, position.lon]}
         zoom={7}
         touchZoom={true}
       >
         <TileLayer attribution="infoEducatie 2023" url={mapProviders[1]} />
         <Polyline positions={routeCoords} color="red" />
-        <Marker position={position}>
+        <Marker position={[position.lat, position.lon]}>
           <Popup>You are here</Popup>
         </Marker>
         <Marker position={[destination.lat, destination.lon]}>

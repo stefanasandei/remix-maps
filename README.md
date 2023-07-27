@@ -1,22 +1,7 @@
-# Remix KPop Template
+# InfoEducatie_Maps
 
-This is an opinionated template, it uses:
- - Remix
- - Drizzle
- - T3 Env
- - Tailwind
- - Cypress
+Proiect realizat de Asandei Stefan-Alexandru in cadrul probei openla sectiunea web, InfoEducatei 2023.
 
- ## How to use
+Documentatie: [link](/docs/documentatie.md)
 
-Either click the "use this template" button on Github or run this command to create a new Remix project:
-
-```bash
-npx create-remix@1.17.1 --template nikolatesla13/kpop-stack
-```
-
-After creating the project, clean the `migrations` folder and remove the example code.
-
-## License
-
-This template was created by Asandei Stefan-Alexandru. Copyright 2023, all rights reserved. Licensed under GPLv3. See [LICENSE.txt](/LICENSE.txt).
+Backend repo: [link](https://github.com/NikolaTesla13/remix-maps-backend)

@@ -1,9 +1,10 @@
-import { type ActionArgs, type V2_MetaFunction } from "@remix-run/node";
+import { json, type ActionArgs, type V2_MetaFunction } from "@remix-run/node";
 import { AppShell } from "~/components/sections/app-shell";
-import MapView from "~/components/sections/map-view.client";
+import MapView, { Camera } from "~/components/sections/map-view.client";
 import { ClientOnly } from "~/components/functional/client-only";
-import { type SearchLocation } from "~/components/sections/sidebar";
-import { MainTopBar } from "~/components/sections/main-top-bar";
+import { CityTopBar } from "~/components/sections/city-top-bar copy";
+import { SearchLocation } from "~/components/sections/sidebar";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -18,17 +19,23 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = async () => {
-  return {};
+  const API_ENDPOINT = "http://0.0.0.0:8000/cameras";
+
+  const res = await fetch(API_ENDPOINT);
+  const data = await res.json();
+  return json(data.cameras, 200);
 };
 
 export async function action({ request }: ActionArgs) {
   const API_ENDPOINT = (location: string) =>
     `https://nominatim.openstreetmap.org/search.php?q=${location}&format=jsonv2`;
-  const body = await request.formData();
 
-  const res = await fetch(
-    API_ENDPOINT(body.get("destination")?.toString() ?? "Bucuresti")
-  );
+  const body = await request.formData();
+  const destination = body.get("destination");
+
+  if (destination == undefined) return json({}, 500);
+
+  const res = await fetch(API_ENDPOINT(destination.toString()));
   const data = await res.json();
 
   return data.map((location: SearchLocation) => {
@@ -41,10 +48,20 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function Index() {
+  const BUCHAREST_COORDS = [44.439663, 26.096306];
+
+  const data = useLoaderData<typeof loader>();
+
   return (
-    <AppShell topBar={<MainTopBar />}>
+    <AppShell topBar={<CityTopBar />}>
       <ClientOnly fallback={<div>loading</div>}>
-        {() => <MapView zoom={"high"} />}
+        {() => (
+          <MapView
+            zoom={"low"}
+            center={BUCHAREST_COORDS}
+            cameras={data as Camera[]}
+          />
+        )}
       </ClientOnly>
     </AppShell>
   );

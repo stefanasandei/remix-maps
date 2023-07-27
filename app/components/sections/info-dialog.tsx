@@ -34,7 +34,10 @@ export const InfoDialog = () => {
                   Distance: {Math.round(destinationQuery.distance / 1000)}km
                 </p>
                 <p>
-                  Duration: {Math.round(destinationQuery.duration / 60 / 60)}h
+                  Duration:{" "}
+                  {destinationQuery.duration >= 360
+                    ? `${Math.round(destinationQuery.duration / 60 / 60)}h`
+                    : `${Math.round(destinationQuery.duration / 60)}m`}
                 </p>
               </div>
             )}

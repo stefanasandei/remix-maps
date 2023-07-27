@@ -5,14 +5,27 @@ import {
   Popup,
   Polyline,
 } from "react-leaflet";
-import type { LatLngTuple } from "leaflet";
+import type { LatLngExpression, LatLngTuple } from "leaflet";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../ui/loading";
 import { useAppDispatch, useAppSelector } from "~/lib/hooks";
 import { addInfo } from "~/lib/slices/destination";
 import { set as setPosition } from "~/lib/slices/position";
+import { CameraDialog } from "./camera-dialog";
 
-const MapView = () => {
+export type Camera = {
+  name: string;
+  link: string;
+  cars: number;
+  processedLink: string;
+  coords: { lat: number; lon: number };
+};
+
+const MapView = (props: {
+  zoom: "low" | "high";
+  center?: number[];
+  cameras?: Camera[];
+}) => {
   const mapProviders = [
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -74,8 +87,10 @@ const MapView = () => {
     <div className="bg-secondary h-full pb-14 -z-10">
       <MapContainer
         style={{ height: "100%" }}
-        center={[position.lat, position.lon]}
-        zoom={7}
+        center={
+          (props.center as LatLngExpression) ?? [position.lat, position.lon]
+        }
+        zoom={props.zoom == "high" ? 7 : 12}
         touchZoom={true}
       >
         <TileLayer attribution="infoEducatie 2023" url={mapProviders[1]} />
@@ -86,6 +101,16 @@ const MapView = () => {
         <Marker position={[destination.lat, destination.lon]}>
           <Popup>Destination</Popup>
         </Marker>
+        {props.cameras != undefined &&
+          props.cameras.map((camera) => (
+            <div key={camera.link}>
+              <Marker position={[camera.coords.lat, camera.coords.lon]}>
+                <Popup>
+                  <CameraDialog camera={camera} />
+                </Popup>
+              </Marker>
+            </div>
+          ))}
       </MapContainer>
     </div>
   );

@@ -1,49 +1,31 @@
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { useState } from "react";
-import {
-  set as setSearchQuery,
-  toggle as toggleSearchQuery,
-} from "~/lib/slices/search-query";
-import { useAppDispatch, useAppSelector } from "~/lib/hooks";
-import { Sidebar } from "./sidebar";
-import { InfoDialog } from "./info-dialog";
+import { Link, useMatches } from "@remix-run/react";
 
-export const AppShell = ({ children }: { children: JSX.Element }) => {
-  const searchQuery = useAppSelector((state) => state.searchQuery);
-  const dispatchSearchQuery = useAppDispatch();
-
-  const [destination, setDestination] = useState(searchQuery.destination);
+export const AppShell = ({
+  children,
+  topBar,
+}: {
+  children: JSX.Element;
+  topBar: JSX.Element;
+}) => {
+  const matches = useMatches();
+  const { pathname } = matches[matches.length - 1];
 
   return (
     <div className="h-screen overflow-y-hidden">
       <div className="w-full bg-background h-14 flex flex-row items-center p-2 justify-between">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Sidebar />
-          <Input
-            type="text"
-            value={destination}
-            onChange={(e) => {
-              setDestination(e.target.value);
-            }}
-            placeholder="Search a destination"
-            className="w-64"
-            required
-          />
-          <Button
-            type="submit"
-            disabled={destination == ""}
-            onClick={() => {
-              dispatchSearchQuery(setSearchQuery(destination));
-              dispatchSearchQuery(toggleSearchQuery());
-            }}
-          >
-            Search
-          </Button>
-          <InfoDialog />
-        </div>
+        {topBar}
         <div className="hidden md:inline">
-          <p className="font-bold text-xl">Remix Maps</p>
+          {/* <p className="font-bold text-xl">Remix Maps</p> */}
+          {pathname !== "/bucharest" ? (
+            <Link to="/bucharest">
+              <Button variant={"outline"}>Bucharest</Button>
+            </Link>
+          ) : (
+            <Link to="/">
+              <Button variant={"outline"}>World</Button>
+            </Link>
+          )}
         </div>
       </div>
       {children}

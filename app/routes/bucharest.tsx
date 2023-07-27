@@ -1,9 +1,9 @@
 import { json, type ActionArgs, type V2_MetaFunction } from "@remix-run/node";
 import { AppShell } from "~/components/sections/app-shell";
-import MapView, { Camera } from "~/components/sections/map-view.client";
+import MapView, { type Camera } from "~/components/sections/map-view.client";
 import { ClientOnly } from "~/components/functional/client-only";
 import { CityTopBar } from "~/components/sections/city-top-bar copy";
-import { SearchLocation } from "~/components/sections/sidebar";
+import { type SearchLocation } from "~/components/sections/sidebar";
 import { useLoaderData } from "@remix-run/react";
 
 export const meta: V2_MetaFunction = () => {

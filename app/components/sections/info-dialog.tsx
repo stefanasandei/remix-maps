@@ -16,11 +16,11 @@ export const InfoDialog = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button type="submit" variant={"outline"}>
+        <Button type="submit" variant={"outline"} id="info-dialog">
           <InfoIcon />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent id="info-content">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
             Route information

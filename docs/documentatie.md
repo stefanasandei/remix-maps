@@ -1,7 +1,7 @@
 # InfoEducatie Maps
 
 Proiectul are doua componente principale:
- - frontend: Redux, Remix, TypeScript, Tailwind, Leaflet 
+ - frontend: Redux, Remix, TypeScript, Tailwind, Leaflet, Cypress
  - backend: Python, Flask, OpenCV, YOLOv3 
 
  ## Frontend
@@ -10,9 +10,9 @@ Proiectul are doua componente principale:
 
  Privind accesibilitatea, interfata este responsive, continutul adaptandu-se si pentru desktop cat si pentru telefoane. Contrastul dintre elemente este optim, iar imaginele contint tag-ul "alt", pentru a optimiza folosirea unui screen reader. Harta poate fi utilizata si prin intermediul mouse/tastatura cat si prin touch. 
  
- Utilizatorii pot alege intre romana si engleza.
+ Utilizatorii pot alege intre romana si engleza. Locatiile pot fi cautate folosind limbaj natural.
 
- Locatiile pot fi cautate folosind limbaj natural.
+ Testele sunt scrise folosind Cypress.
 
  ## Backend
 

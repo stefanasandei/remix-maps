@@ -17,7 +17,7 @@ export const CameraDialog = ({ camera }: { camera: Camera }) => {
           <img src={camera.link} alt={"preview"} />
         </button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent id="camera-dialog">
         <DialogHeader>
           <DialogTitle>{camera.name} camera</DialogTitle>
           <DialogDescription>

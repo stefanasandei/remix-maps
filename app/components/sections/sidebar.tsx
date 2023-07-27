@@ -29,6 +29,7 @@ export const Sidebar = () => {
     <Sheet open={searchQuery.open}>
       <SheetTrigger>
         <Button
+          id="open-route-selection"
           variant={"ghost"}
           size={"icon"}
           type="submit"
@@ -54,6 +55,7 @@ export const Sidebar = () => {
                 >
                   <Input
                     type="text"
+                    id="choose-destination"
                     name="destination"
                     value={searchQuery.destination}
                     onChange={(e) => {
@@ -62,30 +64,40 @@ export const Sidebar = () => {
                     placeholder="Search a destination"
                     className="col-span-3"
                   />
-                  <Button type="submit" className="w-full">
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    id="submit-destination"
+                  >
                     Search
                   </Button>
                 </Form>
                 <div className="py-2 space-y-2 flex flex-col overflow-y-auto">
                   {searchResult != undefined &&
-                    searchResult.map((result: SearchLocation) => (
-                      <button
-                        key={result.display_name}
-                        className="rounded-lg text-left hover:bg-secondary p-1 transition-colors cursor-pointer"
-                        onClick={async () => {
-                          dispatch(
-                            setDestination({ lat: result.lat, lon: result.lon })
-                          );
-                          dispatch(toggle());
-                        }}
-                      >
-                        <p className="text-lg font-bold">
-                          {result.display_name}
-                        </p>
-                        <p>lat: {result.lat}</p>
-                        <p>lon: {result.lon}</p>
-                      </button>
-                    ))}
+                    searchResult.map(
+                      (result: SearchLocation, index: number) => (
+                        <button
+                          id={`search-${index}`}
+                          key={result.display_name}
+                          className="rounded-lg text-left hover:bg-secondary p-1 transition-colors cursor-pointer"
+                          onClick={async () => {
+                            dispatch(
+                              setDestination({
+                                lat: result.lat,
+                                lon: result.lon,
+                              })
+                            );
+                            dispatch(toggle());
+                          }}
+                        >
+                          <p className="text-lg font-bold">
+                            {result.display_name}
+                          </p>
+                          <p>lat: {result.lat}</p>
+                          <p>lon: {result.lon}</p>
+                        </button>
+                      )
+                    )}
                 </div>
               </TabsContent>
               <TabsContent value="position">
@@ -97,6 +109,7 @@ export const Sidebar = () => {
                   <Input
                     type="text"
                     name="destination"
+                    id="choose-position"
                     value={searchQuery.destination}
                     onChange={(e) => {
                       dispatch(setSearchQuery(e.target.value));
@@ -104,7 +117,7 @@ export const Sidebar = () => {
                     placeholder="Search a starting point"
                     className="col-span-3"
                   />
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" className="w-full" id="submit-position">
                     Search
                   </Button>
                 </Form>
@@ -130,24 +143,27 @@ export const Sidebar = () => {
                 </Button>
                 <div className="py-2 space-y-2 flex flex-col overflow-y-auto">
                   {searchResult != undefined &&
-                    searchResult.map((result: SearchLocation) => (
-                      <button
-                        key={result.display_name}
-                        className="rounded-lg text-left hover:bg-secondary p-1 transition-colors cursor-pointer"
-                        onClick={async () => {
-                          dispatch(
-                            setPosition({ lat: result.lat, lon: result.lon })
-                          );
-                          // dispatch(toggle());
-                        }}
-                      >
-                        <p className="text-lg font-bold">
-                          {result.display_name}
-                        </p>
-                        <p>lat: {result.lat}</p>
-                        <p>lon: {result.lon}</p>
-                      </button>
-                    ))}
+                    searchResult.map(
+                      (result: SearchLocation, index: number) => (
+                        <button
+                          id={`search-${index}`}
+                          key={result.display_name}
+                          className="rounded-lg text-left hover:bg-secondary p-1 transition-colors cursor-pointer"
+                          onClick={async () => {
+                            dispatch(
+                              setPosition({ lat: result.lat, lon: result.lon })
+                            );
+                            // dispatch(toggle());
+                          }}
+                        >
+                          <p className="text-lg font-bold">
+                            {result.display_name}
+                          </p>
+                          <p>lat: {result.lat}</p>
+                          <p>lon: {result.lon}</p>
+                        </button>
+                      )
+                    )}
                 </div>
               </TabsContent>
             </Tabs>

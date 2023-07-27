@@ -7,10 +7,10 @@ import {
 } from "~/lib/slices/search-query";
 import { useAppDispatch, useAppSelector } from "~/lib/hooks";
 import { Sidebar } from "./sidebar";
+import { InfoDialog } from "./info-dialog";
 
 export const AppShell = ({ children }: { children: JSX.Element }) => {
   const searchQuery = useAppSelector((state) => state.searchQuery);
-  const destinationQuery = useAppSelector((state) => state.destination);
   const dispatchSearchQuery = useAppDispatch();
 
   const [destination, setDestination] = useState(searchQuery.destination);
@@ -40,20 +40,10 @@ export const AppShell = ({ children }: { children: JSX.Element }) => {
           >
             Search
           </Button>
+          <InfoDialog />
         </div>
         <div className="hidden md:inline">
-          {destinationQuery.distance == 0.0 ? (
-            <p className="font-bold text-xl">Remix Maps</p>
-          ) : (
-            <div className="flex flex-row gap-2">
-              <p>
-                distance: {Math.round(destinationQuery.distance / 1000)}km,{" "}
-              </p>
-              <p>
-                duration: {Math.round(destinationQuery.duration / 60 / 60)}h
-              </p>
-            </div>
-          )}
+          <p className="font-bold text-xl">Remix Maps</p>
         </div>
       </div>
       {children}

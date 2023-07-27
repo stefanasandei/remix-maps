@@ -25,17 +25,17 @@ const MapView = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // if ("geolocation" in navigator) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     dispatch(
-    //       setPosition({
-    //         lat: position.coords.latitude,
-    //         lon: position.coords.longitude,
-    //       })
-    //     );
-    //   });
-    // } else
-    dispatch(setPosition({ lat: 44.439663, lon: 26.096306 }));
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        dispatch(
+          setPosition({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          })
+        );
+      });
+    }
+    // dispatch(setPosition({ lat: 44.439663, lon: 26.096306 }));
   }, [dispatch]);
 
   useEffect(() => {
